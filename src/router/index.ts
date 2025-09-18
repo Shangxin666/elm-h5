@@ -1,16 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-// 定义路由表
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'HomePage',
-    component: () => import('@/views/HomePage.vue'),
+    redirect: '/home',
+  },
+  {
+    path: '/tabs',
+    name: 'tabs',
+    component: () => import('@/views/tabs/TabsView.vue'),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/tabs/home/HomeView.vue'),
+      },
+      {
+        path: '/order',
+        name: 'order',
+        component: () => import('@/views/tabs/order/orderView.vue'),
+      },
+      {
+        path: '/me',
+        name: 'me',
+        component: () => import('@/views/tabs/me/meView.vue'),
+      },
+    ],
   },
 ]
 
-// 创建路由实例
 const router = createRouter({
   history: createWebHistory(), // history 模式（也可用 createWebHashHistory）
   routes,
